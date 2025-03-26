@@ -1,6 +1,6 @@
 const Letter = require('../model/Letter.model.js');
 
-let refNoAtLast = 200;
+let refNoAtLast = 100;
 let currentAcademicYear = getAcademicYear();
 
 function getAcademicYear() {
@@ -34,7 +34,7 @@ const createLetter = async (req, res) => {
         // Reset refNoAtLast if the academic year has changed
         if (academicYear !== currentAcademicYear) {
             currentAcademicYear = academicYear;
-            refNoAtLast = 200;
+            refNoAtLast = 100;
         }
 
 
