@@ -1,8 +1,6 @@
 const Letter = require('../model/Letter.model.js');
 const Counter = require('../model/Counter.model.js')
 
-let refNoAtLast = 100;
-let currentAcademicYear = getAcademicYear();
 
 function getAcademicYear() {
     const Year = new Date().getFullYear();
@@ -24,26 +22,21 @@ const createLetter = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        // Fetch the last counter value
         let counter = await Counter.findOne().sort({ _id: -1 });
 
-        // If no counter exists, initialize it
         if (!counter) {
             counter = new Counter({ value: 100 }); // Start with 100 if no counter exists
             await counter.save();
         }
 
-        // Increment the counter value
         const newCounterValue = counter.value + 1;
 
-        // Update the counter in the database
         await Counter.findByIdAndUpdate(counter._id, { value: newCounterValue });
 
         // Format the name and father's name
         const formattedName = name.split(" ").map(word => word ? word[0].toUpperCase() + word.slice(1) : "").join(" ");
         const formattedFatherName = FatherName.split(" ").map(word => word ? word[0].toUpperCase() + word.slice(1) : "").join(" ");
 
-        // Get the current academic year
         const academicYear = getAcademicYear();
 
         // Generate the final reference number using the counter value
