@@ -32,6 +32,8 @@ const createLetter = async (letterData) => {
     }
 };
 
+
+
 const getSearchedLetter = async (searchTerm1, searchTerm2) => {
     try {
         const response = await axios.post(`${API_URL}/getSearchedLetter`, {
